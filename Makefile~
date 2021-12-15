@@ -1,3 +1,0 @@
-alex lexer.x -o LEXER.hs
-ghc --make parser.hs -o a2
-./a2 ./INPUT/input1
