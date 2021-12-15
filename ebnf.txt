@@ -1,0 +1,52 @@
+(NOTE ::- I HAVE USED 2 PASS PARSER AND USED 2 PARSER (LL1 AND OPERATOR PRECEDENCE) IN COMBINED FORM)
+(NOTE ::- PRODUCTION LIKE A -> A B (LEFT FACTORED) IS VALID IN OPERATOR PRECEDENCE FORM)
+(NOTE ::- i HAVE GIVEN PREORDER TRAVERSAL OF ABSTRACT TREE AS GIVEN IN EXAMPLE OF OUTPUT)
+
+
+For Parse Tree
+Grammar G (N,T,S,P)->
+	N -> {Start,Start',Statment,Assign,Assign',Exp,Implies,Axoe,Gl,As,Mul,NN,Terminal}
+	T -> {EOF, let, in, end, NULL, ASSIGNMENT, ID, CONST, EOS, IMPLIES, AND, OR, XOR, 			EQUALS, LESSTHAN, GREATERTHAN,PLUS,MINUS,TIME,NEGATE,NOT,(,),if,else,then,fi}
+	S -> {Start}
+	P -> {
+		Start ::- Start' EOF
+		Start' ::- let Statment in Exp end | EXP
+		Statment ::- Assign Statment | Assign 
+		Assign ::- ID Assign' Exp EOS 
+		Assign' ::- AASIGNMENT
+		Exp ::- Implies
+		Implies ::- Axoe IMPLIES Implies | Axoe			
+		Axoe ::- Gl AND Axoe | Gl OR Axoe | Gl XOR Axoe | Gl EQUALS Axoe | Gl
+		Gl ::- As LESSTHAN Gl | As GREATERTHAN Gl | As
+		As ::- As PLUS Mul | As MINUS Mul | Mul
+		Mul ::- Mul TIMES NN | NN | Condition 
+		NN ::- NEGATE Terminal | NOT Terminal | Terminal
+		Terminal ::- ID | CONST | (Exp)
+		Condition ::- if Exp else Exp then Exp fi
+	     }
+
+
+
+For Abstract Tree (grammar) : -
+	{
+	Start-> AST EOF | EOF;
+	Let-> Statment In | AST
+	In-> AST END
+	Statment-> Assign Statment | NULL
+	Assign-> ID AST EOS
+	AST -> Implies | Equals | Xor | Or | And | GreaterThan | LessThan | Add | Sub | Mul | 			Negative | Not | In | Condition | CONST | ID
+	Implies-> AST AST
+	Equals-> AST AST
+	Xor-> AST AST
+	Or-> AST AST
+	And-> AST AST
+	GreaterThan-> AST AST
+	LessThan-> AST AST
+	Add-> AST AST
+	Sub-> AST AST
+	Mul-> AST AST
+	Negative-> AST
+	Not-> AST
+	Ter -> ID | CONST | (AST)
+	Condition-> IF AST ELSE AST THEN AST FI
+	}
