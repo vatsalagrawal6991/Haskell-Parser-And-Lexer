@@ -26,3 +26,42 @@ c) 	RUN ./parser ./INPUT/input
 	OR
 a)	RUN make
 b)	RUN make run
+
+
+Problem Statment
+
+Integer arithmetic operators are: PLUS, MINUS, TIMES, NEGATE(unary operator), EQUALS,
+LESSTHAN, GREATERTHAN. Boolean arithmetic operators are: NOT, AND, OR, XOR, IMPLIES,
+EQUALS. The associativity of boolean operators is defined as: NOT, IMPLIES are right-to-left
+associative and the rest are left-to-right associative. Assume the precedence to be the following:
+NOT > AND = OR = XOR = EQUALS > IMPLIES
+
+Constants TRUE, FALSE representing boolean 1 and 0 respectively. Use token type CONST for
+constants.
+• Use token types LPAREN and RPAREN for left and right parenthesis respectively, which help
+resolve the order of evaluation over different operations.
+• Each program should end with a token type EOF.
+• Any other string containing only lower and upper case English alphabets is a variable. Use
+token type ID for variable identifiers.
+• The expression grammar also has:
+– support for if exp then exp else exp fi.
+– support for let var = exp in exp end to create temporary identifier bindings. Here exp
+is either a valid formula or a valid integer arithmetic expression.
+
+
+Implement a recursive descent parser from scratch for the sought language (do not use
+Happy parser generator for Haskell). You will have to import the lexer module in your parser
+implementation so that you can utilize the main lexing routines (look at the generated
+lexer.hs for main lexing functions) while parsing.
+compile your submission by running make command and the run the executable as
+./a2 hfilenamei. The executable a2 should produce the output of the lexer followed by
+a newline, then the parser’s output. Lexer output should be a comma-separated list (enclosed in square brackets) of tokens in order of their appearance in the input file. Each token
+in output should be of the form <token type> space <actual token in the input file
+enclosed in double quotes>. The output of the parser should be the preorder traversal of
+the generated parse tree. The preorder traversal should be a comma-separated list of each
+node’s representation. Use the production rules to represent a non-terminal node, and <token
+type> space <actual token in the input file> to represent the terminal nodes in preorder traversal.
+• Whenever an invalid token is encountered, lexer should generate Unknown Token:<line
+no>:<column number>:<token> error. Here <line no> and <column number> start from 1,
+and <token> is the invalid token. If the input is not syntatically correct according to the specifications, the parser should generate Syntax Error:<line no>:<column number>:<production
+rule> error. Here <production rule> is the production rule where syntax did not match.
